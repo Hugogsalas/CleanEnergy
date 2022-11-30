@@ -7,3 +7,25 @@ export const LOGIN_QUERY = gql`
     }
   }
 `;
+
+export const REGISTER_QUERY = gql`
+  mutation signIn(
+    $email: String!
+    $password: String!
+    $name: String
+    $lastName: String
+    $secondLastName: String
+    $phone: String
+    $address: String
+  ) {
+    signIn(
+      email: $email
+      password: $password
+      name: $name
+      lastName: $lastName
+      phone: $phone
+      secondLastName: $secondLastName
+      address: $address
+    )
+  }
+`;

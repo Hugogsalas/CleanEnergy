@@ -9,6 +9,7 @@ import {homeContainer as Home} from './containers/home/container';
 import {logInContainer as Login} from './containers/login/container';
 import {splashContainer as Splash} from './containers/splash/container';
 import {batteryDetailContainer as BatteryDetail} from './containers/batteryDetail/container';
+import {registerContainer as Register} from './containers/register/container';
 import {RootStackParamList} from './router/paramList';
 import {NativeBaseProvider} from 'native-base';
 import theme from './theme/theme';
@@ -35,6 +36,7 @@ const App = () => {
               initialRouteName="Splash">
               <Stack.Screen name="Splash" component={Splash} />
               <Stack.Screen name="Login" component={Login} />
+              <Stack.Screen name="Register" component={Register} />
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="BatteryDetail" component={BatteryDetail} />
             </Stack.Navigator>
