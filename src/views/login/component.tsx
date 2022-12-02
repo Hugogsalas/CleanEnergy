@@ -63,6 +63,10 @@ const Login: FC<Props> = ({
     }
   }, [data, navigation]);
 
+  const registerUser = () => {
+    navigation.dispatch(StackActions.replace('Register'));
+  };
+
   return (
     <ImageBackground
       style={styles.background}
@@ -157,7 +161,8 @@ const Login: FC<Props> = ({
             <Button
               w={{base: '100%', md: '200px', lg: '200px'}}
               size="lg"
-              variant="solid">
+              variant="solid"
+              onPress={() => registerUser()}>
               <Text fontSize="lg">{write('register')}</Text>
             </Button>
             <Button
