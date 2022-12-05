@@ -1,5 +1,5 @@
 import React, {FC, useEffect, useState} from 'react';
-import {ImageBackground} from 'react-native';
+import {Dimensions, ImageBackground} from 'react-native';
 import {Images} from '../../assets/images/images';
 import {registerProps as Props} from '../../containers/register/types';
 import styles from './styles';
@@ -19,6 +19,9 @@ import {sha512} from 'js-sha512';
 import {useMutation} from '@apollo/client';
 import {REGISTER_QUERY} from '../../services/auth/querys';
 import Loader from '../../components/loader/component';
+import {StackActions, useNavigation} from '@react-navigation/native';
+import {NativeStackNavigationProp} from '@react-navigation/native-stack';
+import {RootStackParamList} from 'src/router/paramList';
 
 const Register: FC<Props> = ({
   write,
@@ -30,6 +33,10 @@ const Register: FC<Props> = ({
 }) => {
   const formError = useError(errors, touched);
   const [showPassword, setShowPassword] = useState<boolean>(false);
+  const navigation =
+    useNavigation<NativeStackNavigationProp<RootStackParamList>>();
+
+  const windowWidth = Dimensions.get('window').width;
 
   const [registerConnect, {loading, data}] = useMutation(REGISTER_QUERY);
 
@@ -53,8 +60,10 @@ const Register: FC<Props> = ({
   };
 
   useEffect(() => {
-    console.log('data', data);
-  }, [data]);
+    if (data?.signIn) {
+      navigation.dispatch(StackActions.replace('Login'));
+    }
+  }, [data, navigation]);
 
   return (
     <ImageBackground
@@ -67,8 +76,10 @@ const Register: FC<Props> = ({
         alignItems="center"
         justifyContent="center"
         bgColor="rgba(0,0,0,0.5)">
-        <Box flexDirection="row">
-          <Box flexDirection="column" marginRight="20px">
+        <Box flexDirection={{base: 'column', md: 'row', lg: 'row'}}>
+          <Box
+            flexDirection="column"
+            marginRight={windowWidth > 800 ? '20px' : '0px'}>
             <FormControl
               isInvalid={formError('name')}
               w={{base: '100%', md: '400px', lg: '400px'}}
@@ -110,21 +121,21 @@ const Register: FC<Props> = ({
               />
             </FormControl>
             <FormControl
-              isInvalid={formError('phone')}
+              isInvalid={formError('secondLastName')}
               w={{base: '100%', md: '400px', lg: '400px'}}
               marginBottom="20px">
-              <FormControl.Label>{write('phone')}</FormControl.Label>
+              <FormControl.Label>{write('secondLastName')}</FormControl.Label>
               <Input
                 size="lg"
-                placeholder={write('phoneInput')}
+                placeholder={write('secondLastNameInput')}
                 w={{base: '100%', md: '400px', lg: '400px'}}
                 variant="rounded"
                 paddingLeft="25px"
                 minHeight="50px"
                 borderWidth="2px"
                 borderColor="white"
-                onChangeText={handleChange('phone')}
-                onBlur={handleBlur('phone')}
+                onChangeText={handleChange('secondLastName')}
+                onBlur={handleBlur('secondLastName')}
               />
             </FormControl>
           </Box>
@@ -161,21 +172,21 @@ const Register: FC<Props> = ({
               </FormControl.ErrorMessage>
             </FormControl>
             <FormControl
-              isInvalid={formError('secondLastName')}
+              isInvalid={formError('phone')}
               w={{base: '100%', md: '400px', lg: '400px'}}
               marginBottom="20px">
-              <FormControl.Label>{write('secondLastName')}</FormControl.Label>
+              <FormControl.Label>{write('phone')}</FormControl.Label>
               <Input
                 size="lg"
-                placeholder={write('secondLastNameInput')}
+                placeholder={write('phoneInput')}
                 w={{base: '100%', md: '400px', lg: '400px'}}
                 variant="rounded"
                 paddingLeft="25px"
                 minHeight="50px"
                 borderWidth="2px"
                 borderColor="white"
-                onChangeText={handleChange('secondLastName')}
-                onBlur={handleBlur('secondLastName')}
+                onChangeText={handleChange('phone')}
+                onBlur={handleBlur('phone')}
               />
             </FormControl>
             <FormControl
@@ -231,6 +242,16 @@ const Register: FC<Props> = ({
               w={{base: '100%', md: '200px', lg: '200px'}}
               size="lg"
               variant="solid"
+              onPress={() =>
+                navigation.dispatch(StackActions.replace('Login'))
+              }>
+              <Text fontSize="lg">{write('back')}</Text>
+            </Button>
+            <Button
+              w={{base: '100%', md: '200px', lg: '200px'}}
+              size="lg"
+              variant="solid"
+              marginBottom={{base: '20px', md: '0px', lg: '0px'}}
               onPress={() => registerUser()}>
               <Text fontSize="lg">{write('register')}</Text>
             </Button>

@@ -10,25 +10,31 @@ export type wordsDescription = dictionaryGenerator<
     'button2Description',
     'button3Description',
     'button4Description',
-    'button1Description',
-    'button2Description',
-    'button3Description',
-    'button4Description',
+    'IPModalHeader',
+    'cancel',
+    'confirm',
+    'clearStorageHeader',
+    'clearStorageMessage',
   ]
 >;
 
 export const settingsDictionary: viewDictionary<wordsDescription> = {
   scope: 'settings',
   en: {
-    button1Title: 'ip address',
+    button1Title: 'IP address',
     button1Description:
-      'Modify the ip address to connect to other device in the network.',
+      'Modify the IP address to connect to other device in the network.',
     button2Title: 'Clear storage',
     button2Description: 'Remove all the data in the storage.',
     button3Title: 'Theme',
     button3Description: 'Change the App theme.',
     button4Title: 'Batteries',
     button4Description: 'Add, delete or update the batteries information.',
+    IPModalHeader: 'Configure IP',
+    cancel: 'Cancel',
+    confirm: 'Confirm',
+    clearStorageHeader: 'Clear Storage',
+    clearStorageMessage: 'Are you sure you want to clear the storage?',
   },
   es: {
     button1Title: 'Dirección IP',
@@ -42,5 +48,10 @@ export const settingsDictionary: viewDictionary<wordsDescription> = {
     button4Title: 'Baterías',
     button4Description:
       'Añade, borra o actualiza la información de las baterías.',
+    IPModalHeader: 'Configurar IP',
+    cancel: 'Cancelar',
+    confirm: 'Confirmar',
+    clearStorageHeader: 'Borrar registros',
+    clearStorageMessage: '¿Estás seguro que quieres borrar los registros?',
   },
 };

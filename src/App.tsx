@@ -10,6 +10,7 @@ import {logInContainer as Login} from './containers/login/container';
 import {splashContainer as Splash} from './containers/splash/container';
 import {batteryDetailContainer as BatteryDetail} from './containers/batteryDetail/container';
 import {registerContainer as Register} from './containers/register/container';
+import {batteriesListContainer as BatteriesList} from './containers/batteriesList/container';
 import {RootStackParamList} from './router/paramList';
 import {NativeBaseProvider} from 'native-base';
 import theme from './theme/theme';
@@ -39,6 +40,7 @@ const App = () => {
               <Stack.Screen name="Register" component={Register} />
               <Stack.Screen name="Home" component={Home} />
               <Stack.Screen name="BatteryDetail" component={BatteryDetail} />
+              <Stack.Screen name="BatteriesList" component={BatteriesList} />
             </Stack.Navigator>
           </NavigationContainer>
         </NativeBaseProvider>
