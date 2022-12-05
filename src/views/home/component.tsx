@@ -11,14 +11,16 @@ import {Icon} from 'native-base';
 
 const Tab = createBottomTabNavigator<bottomNavParamList>();
 
-const Home: FC<Props> = ({write}) => {
+const Home: FC<Props> = ({write, route}) => {
   const iconsProps = {
     iconSize: '6',
   };
 
+  const {params} = route;
+
   return (
     <Tab.Navigator
-      initialRouteName="Resume"
+      initialRouteName={params?.menu || 'Resume'}
       screenOptions={{headerShown: false}}>
       <Tab.Screen
         name="Resume"

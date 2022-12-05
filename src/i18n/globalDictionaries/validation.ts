@@ -14,6 +14,7 @@ export type dictValidation = dictionaryGenerator<
     'longUserName',
     'withoutSpacesUserName',
     'defined',
+    'invalidValue',
   ]
 >;
 
@@ -32,6 +33,7 @@ export const validationDictionary: generalDictionary<
     longUserName: 'Write at most %{maxUserName} characters in your User Name',
     withoutSpacesUserName: "The user name can't have white spaces",
     defined: 'This field have to be defined',
+    invalidValue: 'Invalid value',
   },
   es: {
     invalidEmail: 'Escribe un email valido',
@@ -48,6 +50,7 @@ export const validationDictionary: generalDictionary<
     withoutSpacesUserName:
       'El nombre de usuario no puede tener espacios en blanco',
     defined: 'Este campo debe estar definido',
+    invalidValue: 'valor invalido',
   },
 };
 

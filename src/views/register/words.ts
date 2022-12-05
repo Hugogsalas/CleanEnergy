@@ -19,6 +19,7 @@ export type wordsDescription = dictionaryGenerator<
     'phoneInput',
     'secondLastName',
     'secondLastNameInput',
+    'back',
   ]
 >;
 
@@ -42,6 +43,7 @@ export const registerDictionary: viewDictionary<wordsDescription> = {
     phoneInput: 'Enter phone',
     secondLastName: 'Second last name',
     secondLastNameInput: 'Enter second last name',
+    back: 'Return',
   },
   es: {
     email: 'Email',
@@ -61,5 +63,6 @@ export const registerDictionary: viewDictionary<wordsDescription> = {
     phoneInput: 'Ingresa tu número',
     secondLastName: 'Apellido materno',
     secondLastNameInput: 'Ingresa tu apellido materno',
+    back: 'Regresar',
   },
 };

@@ -8,6 +8,7 @@ import {terminalDictionary} from '../views/terminal/words';
 import {batteryDetailDictionary} from '../views/batteryDetail/words';
 import {create} from '../i18n/globalDictionary';
 import {registerDictionary} from '../views/register/words';
+import {batteriesListDictionary} from '../views/batteriesList/words';
 
 export const createDictionary = () => {
   const globalDictionary = create(
@@ -20,6 +21,7 @@ export const createDictionary = () => {
     terminalDictionary,
     batteryDetailDictionary,
     registerDictionary,
+    batteriesListDictionary,
   );
 
   return globalDictionary;
