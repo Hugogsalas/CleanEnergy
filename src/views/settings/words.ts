@@ -29,7 +29,7 @@ export const settingsDictionary: viewDictionary<wordsDescription> = {
     button3Title: 'Theme',
     button3Description: 'Change the App theme.',
     button4Title: 'Batteries',
-    button4Description: 'Add, delete or update the batteries information.',
+    button4Description: 'Update the batteries information.',
     IPModalHeader: 'Configure IP',
     cancel: 'Cancel',
     confirm: 'Confirm',
@@ -46,8 +46,7 @@ export const settingsDictionary: viewDictionary<wordsDescription> = {
     button3Title: 'Tema',
     button3Description: 'Cambia el tema con el cual visualizas la App.',
     button4Title: 'Baterías',
-    button4Description:
-      'Añade, borra o actualiza la información de las baterías.',
+    button4Description: 'Actualiza la información de las baterías.',
     IPModalHeader: 'Configurar IP',
     cancel: 'Cancelar',
     confirm: 'Confirmar',

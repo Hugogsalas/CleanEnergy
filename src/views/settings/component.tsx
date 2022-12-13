@@ -19,11 +19,12 @@ import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIc
 import FontTistoIcon from 'react-native-vector-icons/Fontisto';
 import {hasNotch} from 'react-native-device-info';
 import {SettingOption} from './types';
-import {ListRenderItemInfo} from 'react-native';
+import {ListRenderItemInfo, SafeAreaView} from 'react-native';
 import {StackActions, useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParamList} from '../../router/paramList';
 import {useError} from '../../helpers/formik';
+import styles from './styles';
 
 const Settings: FC<Props> = ({
   write,
@@ -137,7 +138,7 @@ const Settings: FC<Props> = ({
   };
 
   return (
-    <Box flex="1" alignItems="center" justifyContent="center" bg="white">
+    <SafeAreaView style={styles.saveAreaView}>
       <FlatList
         w="100%"
         data={buttons}
@@ -211,7 +212,7 @@ const Settings: FC<Props> = ({
           </Modal.Footer>
         </Modal.Content>
       </Modal>
-    </Box>
+    </SafeAreaView>
   );
 };
 

@@ -4,8 +4,8 @@ const styles = StyleSheet.create({
   saveAreaView: {
     backgroundColor: 'white',
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    paddingTop: 20,
+    paddingLeft: 20,
   },
 });
 

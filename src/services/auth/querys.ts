@@ -29,3 +29,30 @@ export const REGISTER_QUERY = gql`
     )
   }
 `;
+
+export const GET_BATTERIES_QUERY = gql`
+  query {
+    getBatteryList {
+      _id
+      name
+      Type
+      voltages
+    }
+  }
+`;
+
+export const UPDATE_BATTERIES_QUERY = gql`
+  mutation updateBattery(
+    $_id: String!
+    $name: String
+    $Type: String
+    $voltages: [Float]
+  ) {
+    updateBattery(_id: $_id, name: $name, Type: $Type, voltages: $voltages) {
+      _id
+      name
+      Type
+      voltages
+    }
+  }
+`;
