@@ -1,5 +1,6 @@
 export interface Battery {
   _id: string;
   name: string;
-  type: string;
+  Type: string;
+  voltages: number[];
 }

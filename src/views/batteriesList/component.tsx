@@ -1,4 +1,4 @@
-import React, {FC, useState} from 'react';
+import React, {FC, useEffect, useState} from 'react';
 import {batteriesListProps as Props} from '../../containers/batteriesList/types';
 import {
   Box,
@@ -15,25 +15,16 @@ import {
 import Entypo from 'react-native-vector-icons/Entypo';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import {navigate} from '../../utils/navigation';
-import {Battery} from '../../models/battery';
 import {useError} from '../../helpers/formik';
-const data: Battery[] = [
-  {
-    _id: '1',
-    name: 'LTH',
-    type: 'plomo',
-  },
-  {
-    _id: '2',
-    name: 'Duracell',
-    type: 'litio',
-  },
-  {
-    _id: '3',
-    name: 'Energizer',
-    type: 'fósforo',
-  },
-];
+import {SafeAreaView} from 'react-native';
+import {
+  GET_BATTERIES_QUERY,
+  UPDATE_BATTERIES_QUERY,
+} from '../../services/auth/querys';
+import {useLazyQuery, useMutation} from '@apollo/client';
+import styles from './styles';
+import {Battery} from 'src/models/battery';
+
 const BatteriesList: FC<Props> = ({
   write,
   values,
@@ -43,38 +34,50 @@ const BatteriesList: FC<Props> = ({
   errors,
   touched,
 }) => {
-  const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [showUpdateModal, setShowUpdateModal] = useState(false);
-  const [actionBattery, setActionBattery] = useState<Battery>();
+
+  const [batteryConnect, {data}] = useLazyQuery(GET_BATTERIES_QUERY);
+
+  const [updateBatteryConnect, response] = useMutation(UPDATE_BATTERIES_QUERY);
+
+  useEffect(() => {
+    batteryConnect();
+  }, [batteryConnect]);
 
   const formError = useError(errors, touched);
 
-  const confirmDelete = (battery: Battery) => {
-    setActionBattery(battery);
-    setShowDeleteModal(true);
-  };
-
-  const handleUpdate = (battery: Battery) => {
+  const handleUpdate = (battery: any) => {
     setShowUpdateModal(true);
     initialValues.name = battery.name || '';
-    initialValues.type = battery.type || '';
+    initialValues.type = battery.Type || '';
   };
 
   const updateBattery = () => {
-    console.log('values', values);
+    updateBatteryConnect({
+      variables: {
+        name: values.name,
+        Type: values.type,
+        voltages: [2, 3, 4],
+        _id: data?.getBatteryList?.[0]._id,
+      },
+    });
   };
 
-  const handleDelete = () => {
-    setShowDeleteModal(false);
-    console.log('delete', actionBattery?._id);
-  };
+  useEffect(() => {
+    if (response.data?.updateBattery && !response.loading) {
+      batteryConnect();
+      setShowUpdateModal(false);
+    }
+  }, [response.data, response.loading, batteryConnect]);
+
   return (
-    <Box bg="white" flex="1" paddingTop="1" paddingLeft="1">
+    <SafeAreaView style={styles.saveAreaView}>
       <Pressable onPress={() => navigate('Home', {menu: 'Settings'})}>
         <Icon as={<Ionicons name="arrow-back" />} color="black" />
       </Pressable>
-      {data.map(battery => (
+      {data?.getBatteryList?.map((battery: Battery) => (
         <Box
+          key={battery._id}
           w="100%"
           height="80px"
           flexDirection="row"
@@ -84,7 +87,7 @@ const BatteriesList: FC<Props> = ({
           alignItems="center">
           <Box w="90%">
             <Text color="black">{battery.name}</Text>
-            <Text color="black">{battery.type}</Text>
+            <Text color="black">{battery.Type}</Text>
           </Box>
           <Box w="10%" alignItems="center">
             <Menu
@@ -101,9 +104,6 @@ const BatteriesList: FC<Props> = ({
               }}>
               <Menu.Item onPress={() => handleUpdate(battery)}>
                 {write('update')}
-              </Menu.Item>
-              <Menu.Item onPress={() => confirmDelete(battery)}>
-                {write('delete')}
               </Menu.Item>
             </Menu>
           </Box>
@@ -159,34 +159,7 @@ const BatteriesList: FC<Props> = ({
           </Modal.Footer>
         </Modal.Content>
       </Modal>
-      <Modal isOpen={showDeleteModal} onClose={() => setShowDeleteModal(false)}>
-        <Modal.Content>
-          <Modal.CloseButton />
-          <Modal.Header>{write('delete').toUpperCase()}</Modal.Header>
-          <Modal.Body>
-            <Text>{write('confirmMessage')}</Text>
-          </Modal.Body>
-          <Modal.Footer>
-            <Button.Group space={2}>
-              <Button
-                variant="ghost"
-                colorScheme="blueGray"
-                onPress={() => {
-                  setShowDeleteModal(false);
-                }}>
-                {write('cancel')}
-              </Button>
-              <Button
-                onPress={() => {
-                  handleDelete();
-                }}>
-                {write('confirm')}
-              </Button>
-            </Button.Group>
-          </Modal.Footer>
-        </Modal.Content>
-      </Modal>
-    </Box>
+    </SafeAreaView>
   );
 };
 
